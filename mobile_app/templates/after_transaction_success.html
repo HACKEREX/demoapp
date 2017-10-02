@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Transaction Successful</title>
+</head>
+<body>
+    Your Transaction Result
+
+    Status: {{ data_from_host.data_from_host.status }}<br>
+
+    Status Text : {{ data_from_host.data_from_host.responseText }}
+
+    <form method="POST" action="../host/withdraw_cash/">{% csrf_token %}
+        <input type="hidden" name="transaction_id" value="{{ data_from_host.transactionId }}">
+        {% if data_from_host.data_from_host.status == 200 %}
+            <input type="text" name="atm_id" value={{ data_from_host.data_from_host.atm }}>
+            <input type="submit" value="WITHDWAW NOW">
+        {% endif %}
+    </form>
+</body>
+</html>

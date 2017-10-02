@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CashoBin</title>
+</head>
+<body>
+    <form action="withdraw_to_app" method="POST">{% csrf_token %}
+        <select name="atm">
+            {% for name in atm_option %}
+                <option>{{ name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="acc_no" maxlength="11" placeholder="Enter Account No"><br>
+        <input type="number" name="amt" placeholder="Enter Amount">
+
+        <input type="submit" value="OK">
+        <input type="reset" value="CANCEL">
+    </form>
+</body>
+</html>
