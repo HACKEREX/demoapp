@@ -1,22 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Your Transaction Successful</title>
-</head>
-<body>
-    Your Transaction Result
+{% extends 'base.html' %}
+{% block page_title %} Your Transaction Result {% endblock %}
 
-    Status: {{ data_from_host.data_from_host.status }}<br>
+{%  block main_content %}
 
-    Status Text : {{ data_from_host.data_from_host.responseText }}
+    <div class="row center-block">
+        <div class="col-md-6">
 
-    <form method="POST" action="../host/withdraw_cash/">{% csrf_token %}
-        <input type="hidden" name="transaction_id" value="{{ data_from_host.transactionId }}">
-        {% if data_from_host.data_from_host.status == 200 %}
-            <input type="text" name="atm_id" value={{ data_from_host.data_from_host.atm }}>
-            <input type="submit" value="WITHDWAW NOW">
-        {% endif %}
-    </form>
-</body>
-</html>
+            <table class="table">
+                <tr class="tab-pane">
+                    <th class="alert-info">STATUS</th>
+                    <th class="alert-info">STATUS TEXT</th>
+                </tr>
+                <tr>
+                    <td>
+                        {{ data_from_host.data_from_host.status }}
+                    </td>
+                    <td>
+                        {{ data_from_host.data_from_host.responseText }}
+                    </td>
+                </tr>
+            </table>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th class="alert-info"> Account Number:</th>
+                    <td> {{ data_from_host.data_from_host.transaction_info.account_no }}</td>
+                </tr>
+                <tr>
+                    <th class="alert-info"> Amount:</th>
+                    <td> {{ data_from_host.data_from_host.transaction_info.amount }}</td>
+                </tr>
+            </table>
+
+            <form class="form-group" method="POST" action="../host/withdraw_cash/">{% csrf_token %}
+                <input type="hidden" class="form-control" name="transaction_id" value="{{ data_from_host.transactionId }}">
+                {% if data_from_host.data_from_host.status == 200 %}
+                    <input type="hidden" class="form-control" name="atm_id" value={{ data_from_host.data_from_host.atm }}>
+                    <br><input type="submit" class="btn btn-success" value="WITHDWAW NOW">
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}

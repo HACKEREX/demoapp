@@ -7,7 +7,6 @@ from rest_framework import status
 def withdrawMoneyViaAtm(request,encrypted_data):
 
 
-
     data_dictionary=ast.literal_eval(encrypted_data)
 
     response_data={"status":200,"responseText":ERRORCODES[0],"errors":0};
@@ -15,7 +14,15 @@ def withdrawMoneyViaAtm(request,encrypted_data):
     account_no=data_dictionary['account_no']
     amount=data_dictionary['amount']
 
-    print(request.POST['atm'])
+    if(amount==''):
+        response_data["status"] = 400
+        response_data["responseText"] = "A Valid Amount Required"
+        response_data["errors"] = 1
+
+        return JsonResponse(response_data,status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
     response_data['atm']=request.POST["atm"]
 

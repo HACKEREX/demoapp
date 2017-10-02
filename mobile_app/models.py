@@ -45,7 +45,7 @@ class BankDetails(models.Model):
 class Transaction(models.Model):
 
     transaction_started_at=models.DateTimeField(auto_created=True)
-    transaction_ended_at=models.DateTimeField(auto_created=True,auto_now_add=True)
+    transaction_ended_at=models.DateTimeField(auto_created=True)
     transaction_account=models.CharField(max_length=11,blank=False,default=1)
     transaction_type=models.CharField(max_length=20,choices=TRANSACTION_TYPE,blank=False,default='1')
     transaction_id=models.CharField(max_length=150,blank=False,default="TRAN" + "TM"+str(id))

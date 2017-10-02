@@ -33,14 +33,14 @@ def DispenseCash(request,atm_id,transaction_id):
     else:
 
         if transaction_info.transaction_withdrawl=='2':
-            print("Transaction Already Completed")
+            return HttpResponse("Transaction Already Completed")
 
         atm_in_process.current_amount-=int(amount)
         atm_in_process.save()
         transaction_info.transaction_withdrawl='2'
         transaction_info.save()
 
-    return HttpResponse("APPROVED")
+    return HttpResponse("APPROVED AND TRANSACTION COMPLETED")
 
 
 
@@ -68,7 +68,6 @@ def AtmTransactionResult(request):
 
 
         returned_data=ast.literal_eval(responseData.content)
-        print(type(returned_data))
 
         if(int(returned_data["status"])==200):
             atm_in_process.current_amount -= int(amount)

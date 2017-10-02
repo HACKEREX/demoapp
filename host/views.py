@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from mobile_app.models import Transaction
 from django.http import JsonResponse,HttpResponse
+from django.utils import timezone
 
 def withdrawCash(request):
 
@@ -37,9 +38,13 @@ def withdrawMob(request):
 
 
     data_from_bank=withdrawFun(request)
+
+    transaction_info={"account_no":account_no,"amount":amount}
     data_dictionary=ast.literal_eval(data_from_bank.content)
 
     if data_dictionary["status"]==200:
+        data_dictionary["transaction_info"]=transaction_info
+        newTran.transaction_ended_at=timezone.now()
         newTran.save()
     else:
         newTran.delete()

@@ -62,7 +62,7 @@ DJANGO_SETTINGS_MODULE = 'demoapp.settings'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['atm/templates/','mobile_app/templates'],
+        'DIRS': ['demoapp/templates','atm/templates/','mobile_app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
+from django.views.generic import RedirectView
+from django.core.urlresolvers import reverse_lazy
 import host.urls
 import bank.urls
 import atm.urls
 import mobile_app.urls
 
 urlpatterns = [
+url(r'^$',RedirectView.as_view(url=reverse_lazy('app_home'))),
     url(r'^admin/', admin.site.urls),
     url(r'^host/',include(host.urls)),
     url(r'^bank/',include(bank.urls)),
     url(r'^atm/',include(atm.urls)),
-    url(r'^app/',include(mobile_app.urls))
+    url(r'^app/',include(mobile_app.urls)),
 ]
